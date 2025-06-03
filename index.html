@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Franyer Josue Marin Chavez - Portafolio</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #e9ecef; /* Un gris claro para el fondo general */
+            color: #333;
+        }
+        .navbar-custom {
+            background-color: #003366; /* Azul oscuro principal */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .navbar-custom .navbar-brand,
+        .navbar-custom .nav-link {
+            color: #ffffff;
+        }
+        .navbar-custom .nav-link:hover {
+            color: #cce5ff; /* Azul claro para hover */
+        }
+        .hero-section {
+            background: linear-gradient(135deg, #003366 0%, #005cb9 100%); /* Gradiente azul */
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        .hero-section h1 {
+            font-family: 'Lato', sans-serif;
+            font-weight: 700;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+        .hero-section p {
+            font-size: 1.25rem;
+            margin-bottom: 30px;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-family: 'Lato', sans-serif;
+            font-weight: 700;
+            color: #003366; /* Azul oscuro para títulos de sección */
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: #005cb9; /* Azul medio para la línea bajo el título */
+            margin: 8px auto 0;
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%; 
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+        }
+        .card-header-custom {
+            background-color: #005cb9; 
+            color: white;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .skill-icon {
+            font-size: 3rem;
+            color: #005cb9; 
+            margin-bottom: 10px;
+        }
+        .skill-item {
+            text-align: center;
+            padding: 20px;
+        }
+        .project-card .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-grow: 1; 
+        }
+        .project-card .card-text-container {
+            flex-grow: 1; 
+        }
+        .project-links a {
+            margin-right: 10px;
+            color: #005cb9;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .project-links a:hover {
+            color: #003366;
+            text-decoration: underline;
+        }
+        .contact-section {
+            background-color: #f8f9fa; 
+            padding: 60px 0;
+        }
+        .contact-icon {
+            font-size: 1.5rem;
+            color: #003366;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        .footer-custom {
+            background-color: #002244; 
+            color: #ccc;
+            padding: 30px 0;
+            text-align: center;
+        }
+        .footer-custom a {
+            color: #cce5ff;
+        }
+        .footer-custom a:hover {
+            color: #ffffff;
+        }
+        .tech-logo {
+            max-height: 20px; 
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+        .badge-custom {
+            background-color: #007bff; 
+            color: white;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            font-size: 0.85em;
+        }
+        .experience-card .card-body {
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
+        .experience-card ul {
+            margin-bottom: 0.5rem; 
+        }
+        .experience-card ul li {
+            font-size: 0.9rem; 
+            margin-bottom: 0.25rem; 
+        }
+        .experience-card .card-subtitle {
+            font-size: 0.95rem; 
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Franyer J. Marin C.</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon" style="color:white;"><i class="fas fa-bars"></i></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="#sobre-mi">Sobre Mí</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#habilidades">Habilidades</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#experiencia">Experiencia</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#proyectos">Proyectos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-section" id="inicio">
+        <div class="container">
+            <h1>Franyer Josue Marin Chavez</h1>
+            <p class="lead">Estudiante de Ingeniería en Computación | Desarrollador Full-Stack</p>
+            <a href="#proyectos" class="btn btn-light btn-lg">Ver Mis Proyectos</a>
+        </div>
+    </header>
+
+    <section id="sobre-mi" class="py-5">
+        <div class="container">
+            <h2 class="section-title">Sobre Mí</h2>
+            <div class="row">
+                <div class="col-md-4 text-center mb-4">
+                    <img src="https://i.ibb.co/nqjv6Qrv/Whats-App-Image-2025-06-02-at-23-59-07-4ef88d01.jpg" class="img-fluid rounded-circle shadow" alt="Foto de Franyer Marin">
+                </div>
+                <div class="col-md-8">
+                    <p class="lead">Estudiante proactivo y altamente motivado del 6to semestre de Ingeniería en Computación en la Universidad José Antonio Páez (UJAP), con 18 años de edad y una demostrada capacidad para desarrollar soluciones tecnológicas innovadoras y complejas.</p>
+                    <p>Poseo experiencia práctica en desarrollo full-stack, automatización, análisis de datos y gestión de proyectos, con un dominio avanzado de Python, JavaScript y diversas tecnologías web modernas. Busco oportunidades para aplicar mis habilidades en entornos desafiantes, con un interés particular en contribuir al sector público a través de la informática o en roles que demanden un alto componente tecnológico y de desarrollo.</p>
+                    <p><strong>Educación:</strong> Ingeniería en Computación (Cursando 6to Semestre) - <em>Universidad José Antonio Páez (UJAP)</em>, San Diego, Edo. Carabobo, Venezuela. (2023 - presente)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="habilidades" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title">Habilidades Técnicas</h2>
+            <div class="row">
+                <div class="col-md-4 col-sm-6 skill-item">
+                    <i class="fab fa-python skill-icon"></i>
+                    <h5>Python</h5>
+                    <p class="text-muted small">Flask, Pandas, Automatización, Web Scraping, APIs</p>
+                </div>
+                <div class="col-md-4 col-sm-6 skill-item">
+                    <i class="fab fa-js-square skill-icon"></i>
+                    <h5>JavaScript</h5>
+                    <p class="text-muted small">Vanilla JS, Node.js, Express.js</p>
+                </div>
+                <div class="col-md-4 col-sm-6 skill-item">
+                    <i class="fas fa-code skill-icon"></i> <h5>TypeScript</h5>
+                    <p class="text-muted small">Intermedio</p>
+                </div>
+                <div class="col-md-4 col-sm-6 skill-item">
+                    <i class="fab fa-html5 skill-icon"></i>
+                    <h5>HTML5</h5>
+                    <p class="text-muted small">Avanzado</p>
+                </div>
+                <div class="col-md-4 col-sm-6 skill-item">
+                    <i class="fab fa-css3-alt skill-icon"></i>
+                    <h5>CSS3</h5>
+                    <p class="text-muted small">Bootstrap, Tailwind CSS</p>
+                </div>
+                <div class="col-md-4 col-sm-6 skill-item">
+                    <i class="fas fa-database skill-icon"></i>
+                    <h5>SQL</h5>
+                    <p class="text-muted small">MySQL, MariaDB</p>
+                </div>
+                 <div class="col-md-4 col-sm-6 skill-item">
+                    <i class="fas fa-mobile-alt skill-icon"></i> <h5>Dart & Flutter</h5>
+                    <p class="text-muted small">Aprendiendo</p>
+                </div>
+                <div class="col-md-4 col-sm-6 skill-item">
+                    <i class="fab fa-react skill-icon"></i>
+                    <h5>React</h5>
+                    <p class="text-muted small">Frontend</p>
+                </div>
+                <div class="col-md-4 col-sm-6 skill-item">
+                    <i class="fab fa-vuejs skill-icon"></i>
+                    <h5>Vue.js</h5>
+                    <p class="text-muted small">Frontend</p>
+                </div>
+                <div class="col-md-4 col-sm-6 skill-item">
+                    <i class="fab fa-node-js skill-icon"></i>
+                    <h5>Node.js & Express.js</h5>
+                    <p class="text-muted small">Backend</p>
+                </div>
+                <div class="col-md-4 col-sm-6 skill-item">
+                    <i class="fab fa-git-alt skill-icon"></i>
+                    <h5>Git & GitHub</h5>
+                    <p class="text-muted small">Control de Versiones</p>
+                </div>
+                <div class="col-md-4 col-sm-6 skill-item">
+                     <i class="fas fa-server skill-icon"></i> <h5>Apache</h5>
+                    <p class="text-muted small">Servidores Web</p>
+                </div>
+                <div class="col-md-4 col-sm-6 skill-item">
+                    <i class="fas fa-brain skill-icon"></i> <h5>Machine Learning & Deep Learning</h5>
+                    <p class="text-muted small">Fundamentos, Aprendiendo</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experiencia" class="py-5">
+        <div class="container">
+            <h2 class="section-title">Experiencia Profesional</h2>
+            <div class="card mb-4 experience-card"> 
+                <div class="card-header card-header-custom">
+                    <h5>Profesor de Informática y Programación</h5>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">Academia Ufrayan, Tocuyito | 2022 – 2025 (Aprox. 3 años)</h6>
+                    <ul>
+                        <li>Diseño e impartición de clases de informática y programación a estudiantes de diversos niveles.</li>
+                        <li>Fomento de habilidades prácticas en desarrollo de software y lógica de programación.</li>
+                        <li>Clases de Reparacion y mantenimiento de computadoras.</li>
+                        <li>Enseñanza en fundamentos del funcionamiento cientifico computacional de los dispositivos.</li>
+                    </ul>
+                </div>
+                
+                <div class="card mb-4 experience-card"> 
+                <div class="card-header card-header-custom">
+                    <h5>Tecnico en Computacion</h5>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">De forma Online 2020 – 2025 (Aprox. 5 años)</h6>
+                    <ul>
+                        <li>Reparación y mantenimiento de computadoras.</li>
+                        <li>Ensamblaje y personalización de equipos informáticos.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section id="proyectos" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title">Proyectos Destacados</h2>
+            <div class="row">
+                <div class="col-md-6 col-lg-4 mb-4 d-flex align-items-stretch">
+                    <div class="card project-card w-100">
+                        <div class="card-header card-header-custom"><h5>Sistema de Detección de Bots</h5></div>
+                        <div class="card-body">
+                            <div class="card-text-container">
+                                <p class="card-text small">Herramienta privada para manager de "La Casa de los Famosos Colombia" para identificar compra de bots.</p>
+                                <p class="card-text"><small class="text-muted">Rol: Desarrollador Principal</small></p>
+                                <div>
+                                    <span class="badge badge-custom">Python</span>
+                                    <span class="badge badge-custom">Análisis de Datos</span>
+                                </div>
+                            </div>
+                            <div class="project-links mt-auto pt-3">
+                                <a target="_blank" class="card-link"><i class="fab fa-github"></i> Repositorio (Privado)</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 mb-4 d-flex align-items-stretch">
+                    <div class="card project-card w-100">
+                         <div class="card-header card-header-custom"><h5>Videojuego Educativo (UJAP)</h5></div>
+                        <div class="card-body">
+                            <div class="card-text-container">
+                                <p class="card-text small">Videojuego web de ajedrez multidisciplinario para enseñanza en la UJAP, con carga de preguntas (CSV/manual).</p>
+                                <p class="card-text"><small class="text-muted">Rol: Desarrollador Principal</small></p>
+                                <div>
+                                    <span class="badge badge-custom">HTML</span>
+                                    <span class="badge badge-custom">CSS</span>
+                                    <span class="badge badge-custom">JavaScript</span>
+                                </div>
+                            </div>
+                            <div class="project-links mt-auto pt-3">
+                                <a href="https://ajedrez-pregunton.vercel.app/" target="_blank" class="card-link"><i class="fas fa-external-link-alt"></i> Deploy</a>
+                                <a href="https://github.com/FranyerJM/ajedres-pregunton" target="_blank" class="card-link"><i class="fab fa-github"></i> Repositorio</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 mb-4 d-flex align-items-stretch">
+                    <div class="card project-card w-100">
+                        <div class="card-header card-header-custom"><h5>Bot de Telegram para Certificados</h5></div>
+                        <div class="card-body">
+                            <div class="card-text-container">
+                                <p class="card-text small">Bot de Telegram con API (Python, Pandas) para automatizar emisión de certificados para academias.</p>
+                                <p class="card-text"><small class="text-muted">Rol: Desarrollador Principal</small></p>
+                                 <div>
+                                    <span class="badge badge-custom">Python</span>
+                                    <span class="badge badge-custom">Pandas</span>
+                                    <span class="badge badge-custom">Telegram API</span>
+                                    <span class="badge badge-custom">Flask</span>
+                                </div>
+                            </div>
+                             <div class="project-links mt-auto pt-3">
+                                <a href="https://t.me/certificados_ufrayan_bot" target="_blank" class="card-link"><i class="fas fa-external-link-alt"></i> Deploy (NO WEB)</a>
+                                <a href="https://github.com/FranyerJM/Certificados-bot" target="_blank" class="card-link"><i class="fab fa-github"></i> Repositorio</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4 mb-4 d-flex align-items-stretch">
+                    <div class="card project-card w-100">
+                        <div class="card-header card-header-custom"><h5>CRM para Ventas</h5></div>
+                        <div class="card-body">
+                            <div class="card-text-container">
+                                <p class="card-text small">Desarrollo de un sistema CRM enfocado en la gestión de clientes y procesos de venta.</p>
+                                <p class="card-text"><small class="text-muted">Rol: Desarrollador Full-Stack</small></p>
+                                <div>
+                                    <span class="badge badge-custom">TypeScript</span>
+                                    <span class="badge badge-custom">Tailwind CSS</span>
+                                    <span class="badge badge-custom">React</span>
+                                </div>
+                            </div>
+                             <div class="project-links mt-auto pt-3">
+                                <a href="https://crm-iphones.vercel.app/" target="_blank" class="card-link"><i class="fas fa-external-link-alt"></i> Deploy</a>
+                                <a href="https://github.com/FranyerJM/CRM-iphones-FAPY" target="_blank" class="card-link"><i class="fab fa-github"></i> Repositorio</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4 mb-4 d-flex align-items-stretch">
+                    <div class="card project-card w-100">
+                        <div class="card-header card-header-custom"><h5>CRM para Hospitales (Univ.)</h5></div>
+                        <div class="card-body">
+                            <div class="card-text-container">
+                                <p class="card-text small">Sistema ERP para la gestión de pacientes e información hospitalaria (Proyecto Universitario).</p>
+                                <p class="card-text"><small class="text-muted">Rol: Desarrollador Full-Stack e Integrador</small></p>
+                                <div>
+                                    <span class="badge badge-custom">HTML</span>
+                                    <span class="badge badge-custom">CSS</span>
+                                    <span class="badge badge-custom">Bootstrap</span>
+                                    <span class="badge badge-custom">JavaScript</span>
+                                    <span class="badge badge-custom">Node.js</span>
+                                    <span class="badge badge-custom">Express.js</span>
+                                </div>
+                            </div>
+                             <div class="project-links mt-auto pt-3">
+                                <a href="https://quilt-anime-guild-para.trycloudflare.com/" target="_blank" class="card-link"><i class="fas fa-external-link-alt"></i> Deploy (off-line)</a>
+                                <a href="https://github.com/Manolo15v/erp-hospital" target="_blank" class="card-link"><i class="fab fa-github"></i> Repositorio</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 mb-4 d-flex align-items-stretch">
+                    <div class="card project-card w-100">
+                        <div class="card-header card-header-custom"><h5>API del BCV</h5></div>
+                        <div class="card-body">
+                            <div class="card-text-container">
+                                <p class="card-text small">API para consulta de tasas de cambio e indicadores económicos del Banco Central de Venezuela.</p>
+                                <p class="card-text"><small class="text-muted">Rol: Desarrollador Backend</small></p>
+                                <div>
+                                    <span class="badge badge-custom">Python</span>
+                                    <span class="badge badge-custom">Flask</span>
+                                </div>
+                            </div>
+                            <div class="project-links mt-auto pt-3">
+                                <a href="https://github.com/FranyerJM/api_bcv" target="_blank" class="card-link"><i class="fab fa-github"></i> Repositorio</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 mb-4 d-flex align-items-stretch">
+                    <div class="card project-card w-100">
+                        <div class="card-header card-header-custom"><h5>Sistema de Inventarios</h5></div>
+                        <div class="card-body">
+                            <div class="card-text-container">
+                                <p class="card-text small">Aplicación web para gestión de inventarios, control de stock y movimientos de productos.</p>
+                                <p class="card-text"><small class="text-muted">Rol: Desarrollador Full-Stack</small></p>
+                                <div>
+                                    <span class="badge badge-custom">Vue.js</span>
+                                    <span class="badge badge-custom">JavaScript</span>
+                                    <span class="badge badge-custom">HTML/CSS</span>
+                                    <span class="badge badge-custom">MySQL/MariaDB</span>
+                                </div>
+                            </div>
+                            <div class="project-links mt-auto pt-3">
+                                <a href="" target="_blank" class="card-link"><i class="fas fa-external-link-alt"></i> Deploy</a>
+                                <a href="https://github.com/FranyerJM/inventario-iphones" target="_blank" class="card-link"><i class="fab fa-github"></i> Repositorio</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4 mb-4 d-flex align-items-stretch">
+                    <div class="card project-card w-100">
+                        <div class="card-header card-header-custom"><h5>Calendario Emocional</h5></div>
+                        <div class="card-body">
+                            <div class="card-text-container">
+                                <p class="card-text small">Herramienta web para seguimiento emocional de pareja basado en cálculos del ciclo menstrual.</p>
+                                <p class="card-text"><small class="text-muted">Rol: Desarrollador Principal</small></p>
+                                <div>
+                                    <span class="badge badge-custom">HTML</span>
+                                    <span class="badge badge-custom">CSS (Bootstrap)</span>
+                                    <span class="badge badge-custom">JavaScript</span>
+                                </div>
+                            </div>
+                            <div class="project-links mt-auto pt-3">
+                                <a href="https://calendario-emocional.vercel.app/" target="_blank" class="card-link"><i class="fas fa-external-link-alt"></i> Deploy</a>
+                                <a href="https://github.com/FranyerJM/calendario-emocional" target="_blank" class="card-link"><i class="fab fa-github"></i> Repositorio</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 mb-4 d-flex align-items-stretch">
+                    <div class="card project-card w-100">
+                        <div class="card-header card-header-custom"><h5>Triatlón Simulado (Univ.)</h5></div>
+                        <div class="card-body">
+                            <div class="card-text-container">
+                                <p class="card-text small">Simulación de un triatlón del estado Carabobo como proyecto universitario.</p>
+                                <p class="card-text"><small class="text-muted">Rol: Desarrollador Principal</small></p>
+                                <div>
+                                    <span class="badge badge-custom">HTML</span>
+                                    <span class="badge badge-custom">CSS (Bootstrap)</span>
+                                    <span class="badge badge-custom">JavaScript</span>
+                                </div>
+                            </div>
+                            <div class="project-links mt-auto pt-3">
+                                <a href="https://triatlon-carabobo.vercel.app/" target="_blank" class="card-link"><i class="fas fa-external-link-alt"></i> Deploy (Si aplica)</a>
+                                <a href="https://github.com/FranyerJM/triatlon-carabobo" target="_blank" class="card-link"><i class="fab fa-github"></i> Repositorio</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    
+    <section id="idiomas" class="py-5">
+        <div class="container">
+            <h2 class="section-title">Idiomas</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-4 text-center">
+                    <h5>Español</h5>
+                    <p class="text-muted">Nativo</p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <h5>Inglés</h5>
+                    <p class="text-muted">A2</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="contact-section">
+        <div class="container">
+            <h2 class="section-title">Contacto</h2>
+            <div class="row">
+                <div class="col-md-8 mx-auto text-center">
+                    <p class="lead">Si tienes alguna pregunta, no dudes en contactarme.</p>
+                    <hr class="my-4">
+                    <p><i class="fas fa-map-marker-alt contact-icon"></i>Tocuyito, Urb. La Esperanza, Edo. Carabobo, Venezuela</p>
+                    <p><i class="fas fa-phone contact-icon"></i><a href="tel:+584124137910">0412-413.79.10</a></p>
+                    <p><i class="fas fa-envelope contact-icon"></i><a href="mailto:franyerjmarin@gmail.com">franyerjmarin@gmail.com</a></p>
+                    <div class="mt-4">
+                        <a href="https://www.instagram.com/franyerjosuem/" target="_blank" class="btn btn-outline-danger btn-lg m-2"><i class="fab fa-instagram"></i> Instagram</a>
+                        <a href="https://www.facebook.com/josue.chavez.387026" target="_blank" class="btn btn-outline-primary btn-lg m-2"><i class="fab fa-facebook-f"></i> Facebook</a>
+                        <a href="https://wa.me/+584124137910" target="_blank" class="btn btn-outline-success btn-lg m-2"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                        <a href="https://github.com/FranyerJM" target="_blank" class="btn btn-outline-dark btn-lg m-2"><i class="fab fa-github"></i> GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer-custom">
+        <div class="container">
+            <p>&copy; <span id="currentYear"></span> Franyer Marin. Todos los derechos reservados.</p>
+            <p>Diseñado con <i class="fas fa-heart text-danger"></i></p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Smooth scrolling for navbar links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
