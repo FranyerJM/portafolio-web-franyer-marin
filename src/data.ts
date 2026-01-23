@@ -1,3 +1,4 @@
+// src/data.ts
 import { Profile, ProjectsData } from './types';
 
 export const profile: Profile = {
@@ -44,9 +45,8 @@ export const skills: string[] = [
   "Flutter/Dart", "React", "TypeScript", "Python", "Node.js", "SQL", "Firebase", "N8N", "Git", "Figma"
 ];
 
-// --- SOLUCIÓN DE ERRORES AQUÍ ---
-// 1. Especificamos que 'import.meta.glob' devuelve un Record de strings
-// 2. Casteamos Object.values a 'string[]' explícitamente
+// --- CARGA DE IMÁGENES ---
+// Usamos 'as string[]' para asegurar a TypeScript que esto es un array de textos (URLs)
 
 const latasaGlob = import.meta.glob('../assets/image/laTasa/*.{png,jpg,jpeg,webp}', { eager: true, as: 'url' });
 const latasaImages = Object.values(latasaGlob) as string[];

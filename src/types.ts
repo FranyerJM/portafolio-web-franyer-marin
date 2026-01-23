@@ -1,3 +1,5 @@
+// src/types.ts
+
 export interface SocialLink {
   name: string;
   url: string;
@@ -35,7 +37,7 @@ export interface Project {
   description?: string;
   tech: string[] | string;
   img?: string;
-  images?: string[];
+  images?: string[]; // Array de URLs para el carrusel
   links?: ProjectLinks;
 }
 
