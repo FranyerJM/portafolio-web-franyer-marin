@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Github, Mail, Smartphone, Download, ExternalLink, Code, MapPin, Instagram, Facebook, MessageCircle, LucideIcon, Moon, Sun } from 'lucide-react';
-import { profile, skills, projects, Project } from './data';
+import { profile, skills, projects } from './data';
+import { Project } from './types';
 
 // --- Components ---
 

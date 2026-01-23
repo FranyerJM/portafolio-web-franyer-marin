@@ -1,51 +1,4 @@
-
-export interface SocialLink {
-  name: string;
-  url: string;
-  color: string;
-  icon: 'Github' | 'Instagram' | 'Facebook' | 'MessageCircle';
-}
-
-export interface ContactInfo {
-  email: string;
-  phone: string;
-  phoneUrl?: string; // Optional because it wasn't in the second profile object in your original file, but good to have
-  linkedin?: string;
-  github?: string;
-  socials?: SocialLink[];
-}
-
-export interface Profile {
-  name: string;
-  title: string;
-  bio: string;
-  photo: string;
-  location?: string;
-  contact: ContactInfo;
-}
-
-export interface ProjectLinks {
-  deploy?: string;
-  github?: string;
-  download?: string;
-}
-
-export interface Project {
-  id: number;
-  title: string;
-  description?: string; // Optional for mini projects
-  tech: string[] | string; // array or string based on your usage
-  img?: string;
-  images?: string[]; // Array of images for carousel
-  links?: ProjectLinks; // Optional for mini projects
-}
-
-export interface ProjectsData {
-  relevant: Project[];
-  intermediate: Project[];
-  mini: Project[];
-}
-
+import { Profile, ProjectsData } from './types';
 
 export const profile: Profile = {
   name: "Franyer Marin",
@@ -87,15 +40,22 @@ export const profile: Profile = {
   }
 };
 
-
 export const skills: string[] = [
   "Flutter/Dart", "React", "TypeScript", "Python", "Node.js", "SQL", "Firebase", "N8N", "Git", "Figma"
 ];
 
-// Load images dynamically
-const latasaImages = Object.values(import.meta.glob('../assets/image/laTasa/*.{png,jpg,jpeg,webp}', { eager: true, as: 'url' }));
-const smarketImages = Object.values(import.meta.glob('../assets/image/Smarket/*.{png,jpg,jpeg,webp}', { eager: true, as: 'url' }));
-const lebuImages = Object.values(import.meta.glob('../assets/image/LeBu/*.{png,jpg,jpeg,webp}', { eager: true, as: 'url' }));
+// --- SOLUCIÓN DE ERRORES AQUÍ ---
+// 1. Especificamos que 'import.meta.glob' devuelve un Record de strings
+// 2. Casteamos Object.values a 'string[]' explícitamente
+
+const latasaGlob = import.meta.glob('../assets/image/laTasa/*.{png,jpg,jpeg,webp}', { eager: true, as: 'url' });
+const latasaImages = Object.values(latasaGlob) as string[];
+
+const smarketGlob = import.meta.glob('../assets/image/Smarket/*.{png,jpg,jpeg,webp}', { eager: true, as: 'url' });
+const smarketImages = Object.values(smarketGlob) as string[];
+
+const lebuGlob = import.meta.glob('../assets/image/LeBu/*.{png,jpg,jpeg,webp}', { eager: true, as: 'url' });
+const lebuImages = Object.values(lebuGlob) as string[];
 
 export const projects: ProjectsData = {
   relevant: [
@@ -104,7 +64,7 @@ export const projects: ProjectsData = {
       title: "laTasa",
       description: "App móvil completa con tasas cambiarias en Venezuela en tiempo real.",
       tech: ["Flutter", "Dart", "API Rest"],
-      img: latasaImages[0] || "/images/latasa-cover.jpg", // Fallback or first image as cover
+      img: latasaImages.length > 0 ? latasaImages[0] : "/images/latasa-cover.jpg",
       images: latasaImages.length > 0 ? latasaImages : ["/images/latasa-cover.jpg"],
       links: { deploy: "#", github: "#", download: "#" }
     },
@@ -113,7 +73,7 @@ export const projects: ProjectsData = {
       title: "Smarket",
       description: "App de compras inteligentes con base de datos impulsada por la comunidad.",
       tech: ["React Native", "Firebase", "UI/UX"],
-      img: smarketImages[0] || "/images/smarket-cover.jpg",
+      img: smarketImages.length > 0 ? smarketImages[0] : "/images/smarket-cover.jpg",
       images: smarketImages.length > 0 ? smarketImages : ["/images/smarket-cover.jpg"],
       links: { deploy: "#", github: "#" }
     },
@@ -122,7 +82,7 @@ export const projects: ProjectsData = {
       title: "LeBu",
       description: "App de Deep Reading con técnicas de neuroaprendizaje.",
       tech: ["Flutter", "Clean Arch"],
-      img: lebuImages[0] || "/images/lebu-cover.jpg",
+      img: lebuImages.length > 0 ? lebuImages[0] : "/images/lebu-cover.jpg",
       images: lebuImages.length > 0 ? lebuImages : ["/images/lebu-cover.jpg"],
       links: { deploy: "#", github: "#" }
     }
