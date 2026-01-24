@@ -370,11 +370,36 @@ const Portfolio: React.FC = () => {
              className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-gray-200 dark:border-gray-700 aspect-video group"
            >
              {/* Background Image (Using placeholder since no real image yet) */}
-             <div className="absolute inset-0 bg-gray-200 dark:bg-gray-700">
-                {/* Normally here goes <img src={projects.intermediate[0].img} /> */}
-                <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-300 dark:from-gray-800 dark:to-gray-900">
-                   <span className="text-4xl font-bold text-gray-300 dark:text-gray-600 select-none">16:9 Desktop View</span>
-                </div>
+             {/* Project Preview: Iframe or Image */}
+             <div className="absolute inset-0 bg-gray-200 dark:bg-gray-700 group h-full w-full">
+                {projects.intermediate[0].links?.deploy ? (
+                  <iframe 
+                    src={projects.intermediate[0].links.deploy} 
+                    title={projects.intermediate[0].title}
+                    className="w-full h-full border-0 pointer-events-none transition-all duration-500 group-hover:blur-sm group-hover:scale-105"
+                    loading="lazy"
+                  />
+                ) : (
+                  /* Fallback if no deploy link */
+                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-300 dark:from-gray-800 dark:to-gray-900">
+                     <span className="text-4xl font-bold text-gray-300 dark:text-gray-600 select-none">16:9 Desktop View</span>
+                  </div>
+                )}
+
+                {/* Hover Overlay with Action Button */}
+                {/* Hover Overlay with Action Click Area */}
+                {projects.intermediate[0].links?.deploy && (
+                   <a 
+                     href={projects.intermediate[0].links.deploy} 
+                     target="_blank" 
+                     rel="noopener noreferrer"
+                     className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10 cursor-pointer"
+                   >
+                     <div className="px-8 py-3 bg-blue-600 text-white rounded-full font-bold shadow-2xl group-hover:scale-105 transition transform flex items-center gap-2">
+                       <ExternalLink size={20}/> Abrir Sistema
+                     </div>
+                   </a>
+                )}
              </div>
 
              {/* Content Overlay */}

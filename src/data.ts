@@ -93,7 +93,7 @@ export const projects: ProjectsData = {
       title: "CRM FapyTech",
       description: "Sistema de gestión para ventas de iPhone y control de inventario.",
       tech: ["React", "Node.js", "SQL"],
-      links: { github: "#" }
+      links: { github: "#", deploy: "https://crm-iphones.vercel.app/" }
     },
     {
       id: 5,
