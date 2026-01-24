@@ -6,11 +6,11 @@ export const profile: Profile = {
   title: "Ingeniero en Computación (En formación) | Full-Stack & Mobile Developer",
   bio: "Desarrollador de software enfocado en soluciones móviles multiplataforma y sistemas web robustos. Experto en automatización de procesos y con pasión por el UI/UX. Actualmente cursando el 8vo semestre de Ingeniería.",
   photo: "https://i.ibb.co/nqjv6Qrv/Whats-App-Image-2025-06-02-at-23-59-07-4ef88d01.jpg", 
-  location: "Tocuyito, Urb. La Esperanza, Edo. Carabobo, Venezuela",
   contact: {
     email: "franyerjmarin@gmail.com",
     phone: "0412-413.79.10",
     phoneUrl: "tel:+584124137910",
+    location: "Valencia, Carabobo",
     github: "https://github.com/FranyerJM",
     socials: [
       { 
@@ -62,29 +62,56 @@ export const projects: ProjectsData = {
     {
       id: 1,
       title: "laTasa",
-      description: "App móvil completa con tasas cambiarias en Venezuela en tiempo real.",
-      tech: ["Flutter", "Dart", "API Rest"],
+      description: "Calculadora de tasas cambiarias en Venezuela en tiempo real, incluye multiples funciones.",
+      tech: ["Futter", "Dart", "Node.js"],
       img: latasaImages.length > 0 ? latasaImages[0] : "/images/latasa-cover.jpg",
       images: latasaImages.length > 0 ? latasaImages : ["/images/latasa-cover.jpg"],
-      links: { deploy: "#", github: "#", download: "#" }
+      links: { deploy: "#", github: "#", download: "#" },
+      details: {
+        overview: "Aplicación líder en monitoreo de tasas cambiarias en Venezuela. Proporciona información actualizada en tiempo real de múltiples fuentes financieras, con herramientas integradas para conversión y análisis histórico.",
+        features: ["Actualización en tiempo real", "Calculadora multimoneda", "Gráficos históricos", "Modo offline", "Notificaciones de volatilidad"],
+        stack: {
+          mobile: ["Flutter", "Dart"],
+          backend: ["Node.js", "Express"],
+          tools: ["Figma", "Git"]
+        }
+      }
     },
     {
       id: 2,
       title: "Smarket",
       description: "App de compras inteligentes con base de datos impulsada por la comunidad.",
-      tech: ["React Native", "Firebase", "UI/UX"],
+      tech: ["Flutter", "Dart", "Node.js", "FastAPI"],
       img: smarketImages.length > 0 ? smarketImages[0] : "/images/smarket-cover.jpg",
       images: smarketImages.length > 0 ? smarketImages : ["/images/smarket-cover.jpg"],
-      links: { deploy: "#", github: "#" }
+      links: { deploy: "#", github: "#" },
+      details: {
+        overview: "Plataforma comunitaria para comparar precios de supermercados. Los usuarios escanean códigos de barras para compartir y consultar precios actualizados por la comunidad.",
+        features: ["Escaneo de código de barras", "Comparativa de precios", "Listas de compras colaborativas", "Geolocalización de ofertas"],
+        stack: {
+          mobile: ["Flutter", "Dart"],
+          backend: ["Node.js", "FastAPI"],
+          database: ["Firebase", "PostgreSQL"],
+          tools: ["TensorFlow (OCR)"]
+        }
+      }
     },
     {
       id: 3,
       title: "LeBu",
       description: "App de Deep Reading con técnicas de neuroaprendizaje.",
-      tech: ["Flutter", "Clean Arch"],
+      tech: ["Flutter", "Dart"],
       img: lebuImages.length > 0 ? lebuImages[0] : "/images/lebu-cover.jpg",
       images: lebuImages.length > 0 ? lebuImages : ["/images/lebu-cover.jpg"],
-      links: { deploy: "#", github: "#" }
+      links: { deploy: "#", github: "#" },
+      details: {
+        overview: "Herramienta de lectura optimizada que aplica técnicas de neuroaprendizaje para mejorar la retención y velocidad de lectura.",
+        features: ["Lectura biónica (Bionic Reading)", "Seguimiento ocular guiado", "Resúmenes inteligentes", "Estadísticas de progreso"],
+        stack: {
+          mobile: ["Flutter", "Dart"],
+          tools: ["Clean Architecture", "Riverpod"]
+        }
+      }
     }
   ],
   intermediate: [
@@ -93,7 +120,17 @@ export const projects: ProjectsData = {
       title: "CRM FapyTech",
       description: "Sistema de gestión para ventas de iPhone y control de inventario.",
       tech: ["React", "Node.js", "SQL"],
-      links: { github: "#", deploy: "https://crm-iphones.vercel.app/" }
+      links: { github: "#", deploy: "https://crm-iphones.vercel.app/" },
+      details: {
+        overview: "Sistema integral para la gestión administrativa de tiendas de ventas de equipos Apple. Controla desde el inventario hasta la facturación y garantía.",
+        features: ["Gestión de inventario por IMEI", "Control de ventas y facturación", "Base de datos de clientes", "Reportes financieros", "Dashboard administrativo"],
+        stack: {
+          frontend: ["React", "TypeScript", "TailwindCSS"],
+          backend: ["Node.js", "Express"],
+          database: ["PostgreSQL", "Supabase"],
+          tools: ["Vite", "Recharts"]
+        }
+      }
     },
     {
       id: 5,

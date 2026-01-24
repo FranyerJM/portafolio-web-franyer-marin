@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Github, Mail, Smartphone, Download, ExternalLink, Code, MapPin, Instagram, Facebook, MessageCircle, LucideIcon, Moon, Sun } from 'lucide-react';
+import { Github, Mail, Smartphone, Download, ExternalLink, Code, MapPin, Instagram, Facebook, MessageCircle, LucideIcon, Moon, Sun, Info, Layers, Server, Cpu, ChevronLeft, ChevronRight } from 'lucide-react';
 import { profile, skills, projects } from './data';
 import { Project } from './types';
 
@@ -21,6 +21,127 @@ const SectionTitle: React.FC<SectionTitleProps> = ({ title }) => (
 );
 
 // --- Modal Component ---
+
+const ProjectInfoModal: React.FC<{ isOpen: boolean; onClose: () => void; project: Project }> = ({ isOpen, onClose, project }) => {
+  if (!isOpen || !project.details) return null;
+
+  const { details } = project;
+
+  return (
+    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm" onClick={onClose}>
+      <motion.div 
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        className="bg-white dark:bg-gray-800 p-0 rounded-2xl shadow-2xl max-w-2xl w-full border border-gray-100 dark:border-gray-700 relative overflow-hidden flex flex-col max-h-[90vh]"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-900/50">
+           <div>
+             <h3 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+               {project.title} <span className="text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-700 px-2 py-0.5 rounded-full">Info</span>
+             </h3>
+           </div>
+           <button onClick={onClose} className="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full transition">
+              <span className="sr-only">Cerrar</span>
+              <svg className="w-6 h-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+           </button>
+        </div>
+        
+        <div className="p-6 overflow-y-auto custom-scrollbar">
+           {/* Overview */}
+           <div className="mb-8">
+             <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+               <Info size={20} className="text-blue-500"/> Sobre el proyecto
+             </h4>
+             <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-base">
+               {details.overview}
+             </p>
+           </div>
+
+           {/* Features */}
+           <div className="mb-8">
+             <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+               <Cpu size={20} className="text-purple-500"/> Características Clave
+             </h4>
+             <ul className="grid sm:grid-cols-2 gap-2">
+               {details.features.map((feature, idx) => (
+                 <li key={idx} className="flex items-start gap-2 text-gray-600 dark:text-gray-300 text-sm">
+                   <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"/>
+                   {feature}
+                 </li>
+               ))}
+             </ul>
+           </div>
+
+           {/* Tech Stack Grid */}
+           <div>
+             <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+               <Layers size={20} className="text-green-500"/> Stack Tecnológico
+             </h4>
+             <div className="grid sm:grid-cols-3 gap-6">
+                {details.stack.frontend && (
+                  <div className="bg-gray-50 dark:bg-gray-900/30 p-4 rounded-xl border border-gray-100 dark:border-gray-700/50">
+                    <div className="flex items-center gap-2 mb-3 text-blue-600 dark:text-blue-400 font-semibold text-sm uppercase tracking-wide">
+                      <LayoutIcon size={16}/> Frontend / Mobile
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {details.stack.frontend?.map(t => <TechBadge key={t} text={t}/>)}
+                      {details.stack.mobile?.map(t => <TechBadge key={t} text={t}/>)}
+                    </div>
+                  </div>
+                )}
+                
+                {(details.stack.backend || details.stack.database) && (
+                  <div className="bg-gray-50 dark:bg-gray-900/30 p-4 rounded-xl border border-gray-100 dark:border-gray-700/50">
+                    <div className="flex items-center gap-2 mb-3 text-emerald-600 dark:text-emerald-400 font-semibold text-sm uppercase tracking-wide">
+                      <Server size={16}/> Backend & Data
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {details.stack.backend?.map(t => <TechBadge key={t} text={t}/>)}
+                      {details.stack.database?.map(t => <TechBadge key={t} text={t}/>)}
+                    </div>
+                  </div>
+                )}
+
+                {details.stack.tools && (
+                  <div className="bg-gray-50 dark:bg-gray-900/30 p-4 rounded-xl border border-gray-100 dark:border-gray-700/50">
+                    <div className="flex items-center gap-2 mb-3 text-orange-600 dark:text-orange-400 font-semibold text-sm uppercase tracking-wide">
+                      <Code size={16}/> Tools & Libs
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                       {details.stack.tools?.map(t => <TechBadge key={t} text={t}/>)}
+                    </div>
+                  </div>
+                )}
+             </div>
+           </div>
+        </div>
+
+        <div className="p-6 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 flex justify-end gap-3">
+           <button onClick={onClose} className="px-5 py-2.5 text-gray-600 dark:text-gray-300 font-medium hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition">
+             Cerrar
+           </button>
+           {project.links?.github && (
+             <a href={project.links.github} target="_blank" rel="noopener noreferrer" className="px-5 py-2.5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-bold rounded-lg hover:opacity-90 transition flex items-center gap-2">
+               <Github size={18}/> Ver Código
+             </a>
+           )}
+        </div>
+
+      </motion.div>
+    </div>
+  );
+};
+
+// Helper for icons and badges
+const LayoutIcon = ({size}: {size: number}) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>;
+const TechBadge = ({ text }: { text: string }) => (
+  <span className="px-2.5 py-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-md text-xs font-medium text-gray-700 dark:text-gray-300 shadow-sm">
+    {text}
+  </span>
+);
+
 const DemoModal: React.FC<{ isOpen: boolean; onClose: () => void; downloadLink?: string; deployLink?: string }> = ({ isOpen, onClose, downloadLink, deployLink }) => {
   if (!isOpen) return null;
 
@@ -77,15 +198,49 @@ const DemoModal: React.FC<{ isOpen: boolean; onClose: () => void; downloadLink?:
 
 const MobileProjectCard: React.FC<{ project: Project }> = ({ project }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [showModal, setShowModal] = useState(false);
+  const [showDemoModal, setShowDemoModal] = useState(false);
+  const [showInfoModal, setShowInfoModal] = useState(false);
   const images = project.images || [project.img || ''];
+  const [direction, setDirection] = useState(0);
+
+  const paginate = (newDirection: number) => {
+    setDirection(newDirection);
+    setCurrentImageIndex((prev) => {
+      let nextIndex = prev + newDirection;
+      if (nextIndex < 0) nextIndex = images.length - 1;
+      if (nextIndex >= images.length) nextIndex = 0;
+      return nextIndex;
+    });
+  };
+
+  const variants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 280 : -280,
+      opacity: 0,
+    }),
+    center: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1,
+    },
+    exit: (direction: number) => ({
+      zIndex: 0,
+      x: direction < 0 ? 280 : -280,
+      opacity: 0,
+    }),
+  };
+
+  const swipeConfidenceThreshold = 10000;
+  const swipePower = (offset: number, velocity: number) => {
+    return Math.abs(offset) * velocity;
+  };
 
   useEffect(() => {
     if (images.length <= 1) return;
     
     // Auto-scroll images every 3.5s
     const timer = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % images.length);
+      paginate(1);
     }, 3500);
 
     return () => clearInterval(timer);
@@ -98,45 +253,77 @@ const MobileProjectCard: React.FC<{ project: Project }> = ({ project }) => {
         <div className="relative w-full max-w-[280px] aspect-[9/19] bg-gray-900 rounded-[2.5rem] border-[8px] border-gray-800 shadow-xl overflow-hidden mb-6 group transition-transform hover:-translate-y-2 duration-300">
           
           {/* Screen Content (Carousel) */}
-          <div className="absolute top-0 w-full h-full bg-gray-100 dark:bg-gray-800">
-            <AnimatePresence mode='popLayout'>
+          <div className="relative w-full h-full bg-gray-100 dark:bg-gray-800 overflow-hidden">
+            <AnimatePresence initial={false} custom={direction}>
               <motion.img
                 key={currentImageIndex}
                 src={images[currentImageIndex]}
-                alt={project.title}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
-                className="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:blur-sm group-hover:scale-105"
+                custom={direction}
+                variants={variants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{
+                  x: { type: "spring", stiffness: 300, damping: 30 },
+                  opacity: { duration: 0.2 },
+                }}
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={1}
+                onDragEnd={(_, { offset, velocity }) => {
+                  const swipe = swipePower(offset.x, velocity.x);
+
+                  if (swipe < -swipeConfidenceThreshold) {
+                    paginate(1);
+                  } else if (swipe > swipeConfidenceThreshold) {
+                    paginate(-1);
+                  }
+                }}
+                className="absolute inset-0 w-full h-full object-cover"
               />
             </AnimatePresence>
+            
+            {/* Navigation Buttons (Visible on Hover/Touch) */}
+            {images.length > 1 && (
+              <>
+                <button 
+                  className="absolute left-2 top-1/2 -translate-y-1/2 p-1.5 bg-black/30 text-white rounded-full backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity z-10 hover:bg-black/50"
+                  onClick={(e) => { e.stopPropagation(); paginate(-1); }}
+                >
+                  <ChevronLeft size={20} />
+                </button>
+                <button 
+                  className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 bg-black/30 text-white rounded-full backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity z-10 hover:bg-black/50"
+                  onClick={(e) => { e.stopPropagation(); paginate(1); }}
+                >
+                  <ChevronRight size={20} />
+                </button>
+              </>
+            )}
             
             {/* Overlay Gradient for Buttons */}
             <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-between py-10 px-6">
                
                <div /> {/* Top Spacer */}
 
-               {/* Center Actions: View Demo & GitHub */}
+                {/* Center Actions: View Demo & Info */}
                <div className="flex flex-col items-center gap-4">
                  {project.links?.deploy && (
                    <button 
-                     onClick={() => setShowModal(true)}
+                     onClick={() => setShowDemoModal(true)}
                      className="flex items-center gap-2 px-6 py-2 bg-white/20 backdrop-blur-md border border-white/40 text-white rounded-full font-medium hover:bg-white/30 hover:scale-105 transition transform"
                    >
                      <ExternalLink size={18}/> Ver Demo Web
                    </button>
                  )}
                  
-                 {project.links?.github && (
-                    <a 
-                      href={project.links.github} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
+                 {project.details && (
+                    <button 
+                      onClick={() => setShowInfoModal(true)}
                       className="flex items-center gap-2 px-4 py-2 text-gray-200 hover:text-white font-medium text-sm hover:underline transition"
                     >
-                      <Github size={16}/> Ver Código en GitHub
-                    </a>
+                      <Info size={18}/> Más Información
+                    </button>
                  )}
                </div>
 
@@ -182,7 +369,7 @@ const MobileProjectCard: React.FC<{ project: Project }> = ({ project }) => {
           <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{project.title}</h3>
           <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">{project.description}</p>
           <div className="flex flex-wrap justify-center gap-2">
-            {Array.isArray(project.tech) && (project.tech as string[]).slice(0, 3).map(t => (
+            {Array.isArray(project.tech) && (project.tech as string[]).slice(0, 10).map(t => (
               <span key={t} className="px-2 py-1 bg-blue-50 dark:bg-blue-900/40 text-blue-600 dark:text-blue-300 text-xs rounded-md font-medium">
                 {t}
               </span>
@@ -192,14 +379,23 @@ const MobileProjectCard: React.FC<{ project: Project }> = ({ project }) => {
       </div>
 
       <AnimatePresence>
-        {showModal && (
+      <AnimatePresence>
+        {showDemoModal && (
           <DemoModal 
-            isOpen={showModal} 
-            onClose={() => setShowModal(false)} 
+            isOpen={showDemoModal} 
+            onClose={() => setShowDemoModal(false)} 
             downloadLink={project.links?.download}
             deployLink={project.links?.deploy}
           />
         )}
+        {showInfoModal && (
+          <ProjectInfoModal 
+            isOpen={showInfoModal} 
+            onClose={() => setShowInfoModal(false)} 
+            project={project}
+          />
+        )}
+      </AnimatePresence>
       </AnimatePresence>
     </>
   );
@@ -212,8 +408,10 @@ interface ProjectCardProps {
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, layout }) => {
   const isLarge = layout === 'large';
+  const [showInfoModal, setShowInfoModal] = useState(false);
   
   return (
+    <>
     <motion.div 
       whileHover={{ y: -5 }}
       className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden border border-gray-100 dark:border-gray-700 ${isLarge ? 'md:col-span-2' : ''}`}
@@ -224,7 +422,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, layout }) => {
           <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
              {/* Overlay buttons for UX - Desktop doesn't need the modal for now, or assume it's web-first  */}
              {project.links?.deploy && <a href={project.links.deploy} className="flex items-center gap-2 px-4 py-2 bg-white text-gray-900 rounded-lg font-medium hover:bg-gray-100 transition"><ExternalLink size={18}/> Demo</a>}
-             {project.links?.github && <a href={project.links.github} className="flex items-center gap-2 px-4 py-2 bg-gray-800 text-white rounded-lg font-medium hover:bg-gray-700 transition"><Github size={18}/> Code</a>}
+             {project.details && <button onClick={() => setShowInfoModal(true)} className="flex items-center gap-2 px-4 py-2 bg-gray-800 text-white rounded-lg font-medium hover:bg-gray-700 transition"><Info size={18}/> Info</button>}
           </div>
         </div>
       )}
@@ -233,6 +431,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, layout }) => {
         <div className="flex justify-between items-start mb-2">
           <h3 className="text-xl font-bold text-gray-900 dark:text-white">{project.title}</h3>
           <div className="flex gap-2 text-blue-600 dark:text-blue-400">
+            {project.details && <button onClick={() => setShowInfoModal(true)} aria-label="More Info"><Info size={18}/></button>}
             {project.links?.github && <a href={project.links.github} target="_blank" rel="noopener noreferrer"><Github size={18}/></a>}
             {project.links?.download && <a href={project.links.download} target="_blank" rel="noopener noreferrer"><Download size={18}/></a>}
           </div>
@@ -249,12 +448,24 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, layout }) => {
         </div>
       </div>
     </motion.div>
+    
+    <AnimatePresence>
+      {showInfoModal && (
+        <ProjectInfoModal 
+          isOpen={showInfoModal} 
+          onClose={() => setShowInfoModal(false)} 
+          project={project}
+        />
+      )}
+    </AnimatePresence>
+    </>
   );
 };
 
 // --- Main Component ---
 
 const Portfolio: React.FC = () => {
+  const [showDesktopInfoModal, setShowDesktopInfoModal] = useState(false);
   const [isDark, setIsDark] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
@@ -403,29 +614,38 @@ const Portfolio: React.FC = () => {
              </div>
 
              {/* Content Overlay */}
-             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent p-8 pt-24 text-white pointer-events-none z-20">
-                <div className="flex justify-between items-end">
-                  <div>
-                    <h3 className="text-3xl font-bold mb-2">{projects.intermediate[0].title}</h3>
-                    <p className="text-gray-200 max-w-2xl text-lg mb-4">{projects.intermediate[0].description}</p>
-                    <div className="flex gap-3">
+             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent p-4 md:p-8 pt-16 md:pt-24 text-white pointer-events-none z-20">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 md:gap-0">
+                  <div className="w-full">
+                    <h3 className="text-xl md:text-3xl font-bold mb-2">{projects.intermediate[0].title}</h3>
+                    <p className="text-gray-200 max-w-2xl text-sm md:text-lg mb-4 line-clamp-3 md:line-clamp-none">{projects.intermediate[0].description}</p>
+                    <div className="flex gap-2 md:gap-3 flex-wrap">
                       {(projects.intermediate[0].tech as string[]).map(t => (
-                        <span key={t} className="px-3 py-1 bg-white/20 backdrop-blur-md rounded-md text-sm font-medium">
+                        <span key={t} className="px-2 md:px-3 py-1 bg-white/20 backdrop-blur-md rounded-md text-xs md:text-sm font-medium">
                           {t}
                         </span>
                       ))}
                     </div>
                   </div>
-                  <div className="flex gap-4 pointer-events-auto">
-                     {projects.intermediate[0].links?.github && (
-                       <a href={projects.intermediate[0].links.github} className="p-3 bg-white text-gray-900 rounded-full hover:bg-gray-200 transition">
-                         <Github size={24}/>
-                       </a>
+                  <div className="flex gap-4 pointer-events-auto self-end md:self-auto">
+                     {projects.intermediate[0].details && (
+                       <button onClick={() => setShowDesktopInfoModal(true)} className="p-3 bg-white text-gray-900 rounded-full hover:bg-gray-200 transition shadow-lg">
+                         <Info size={24}/>
+                       </button>
                      )}
                   </div>
                 </div>
              </div>
            </motion.div>
+           <AnimatePresence>
+             {showDesktopInfoModal && (
+               <ProjectInfoModal 
+                 isOpen={showDesktopInfoModal} 
+                 onClose={() => setShowDesktopInfoModal(false)} 
+                 project={projects.intermediate[0]}
+               />
+             )}
+           </AnimatePresence>
         </section>
 
         {/* --- NIVEL 2: PROYECTOS INTERMEDIOS (Remaining) --- */}
@@ -511,7 +731,7 @@ const Portfolio: React.FC = () => {
                 <div className="p-3 bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 rounded-full group-hover:scale-110 transition-transform">
                   <MapPin size={24} />
                 </div>
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Tocuyito, Carabobo</span>
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{profile.contact.location}</span>
                 <span className="text-xs text-gray-500 dark:text-gray-500">Venezuela</span>
               </div>
 
@@ -568,7 +788,7 @@ const Portfolio: React.FC = () => {
 
           <div className="border-t border-gray-200 dark:border-gray-800 pt-8">
             <p className="text-gray-500 dark:text-gray-500 text-sm">
-              © 2025 {profile.name}. Hecho con React & Tailwind.
+              © 2025 {profile.name}
             </p>
           </div>
         </div>

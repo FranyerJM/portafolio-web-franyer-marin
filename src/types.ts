@@ -11,6 +11,7 @@ export interface ContactInfo {
   email: string;
   phone: string;
   phoneUrl?: string;
+  location?: string;
   linkedin?: string;
   github?: string;
   socials?: SocialLink[];
@@ -31,6 +32,18 @@ export interface ProjectLinks {
   download?: string;
 }
 
+export interface ProjectDetails {
+  overview: string;
+  features: string[];
+  stack: {
+    frontend?: string[];
+    backend?: string[];
+    database?: string[];
+    mobile?: string[];
+    tools?: string[];
+  };
+}
+
 export interface Project {
   id: number;
   title: string;
@@ -39,6 +52,7 @@ export interface Project {
   img?: string;
   images?: string[]; // Array de URLs para el carrusel
   links?: ProjectLinks;
+  details?: ProjectDetails;
 }
 
 export interface ProjectsData {
