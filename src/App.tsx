@@ -403,7 +403,7 @@ const Portfolio: React.FC = () => {
              </div>
 
              {/* Content Overlay */}
-             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent p-8 pt-24 text-white">
+             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent p-8 pt-24 text-white pointer-events-none z-20">
                 <div className="flex justify-between items-end">
                   <div>
                     <h3 className="text-3xl font-bold mb-2">{projects.intermediate[0].title}</h3>
@@ -416,7 +416,7 @@ const Portfolio: React.FC = () => {
                       ))}
                     </div>
                   </div>
-                  <div className="flex gap-4">
+                  <div className="flex gap-4 pointer-events-auto">
                      {projects.intermediate[0].links?.github && (
                        <a href={projects.intermediate[0].links.github} className="p-3 bg-white text-gray-900 rounded-full hover:bg-gray-200 transition">
                          <Github size={24}/>
