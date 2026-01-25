@@ -287,13 +287,13 @@ const MobileProjectCard: React.FC<{ project: Project }> = ({ project }) => {
             {images.length > 1 && (
               <>
                 <button 
-                  className="absolute left-2 top-1/2 -translate-y-1/2 p-1.5 bg-black/30 text-white rounded-full backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity z-10 hover:bg-black/50"
+                  className="absolute left-2 top-1/2 -translate-y-1/2 p-1.5 bg-black/30 text-white rounded-full backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity z-30 hover:bg-black/50"
                   onClick={(e) => { e.stopPropagation(); paginate(-1); }}
                 >
                   <ChevronLeft size={20} />
                 </button>
                 <button 
-                  className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 bg-black/30 text-white rounded-full backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity z-10 hover:bg-black/50"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 bg-black/30 text-white rounded-full backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity z-30 hover:bg-black/50"
                   onClick={(e) => { e.stopPropagation(); paginate(1); }}
                 >
                   <ChevronRight size={20} />
@@ -302,7 +302,7 @@ const MobileProjectCard: React.FC<{ project: Project }> = ({ project }) => {
             )}
             
             {/* Overlay Gradient for Buttons */}
-            <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-between py-10 px-6">
+            <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-between py-10 px-6 z-20">
                
                <div /> {/* Top Spacer */}
 
@@ -468,9 +468,11 @@ const Portfolio: React.FC = () => {
   const [showDesktopInfoModal, setShowDesktopInfoModal] = useState(false);
   const [isDark, setIsDark] = useState(() => {
     if (typeof window !== 'undefined') {
-      return localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      // Default to dark mode unless explicitly set to light
+      const savedTheme = localStorage.getItem('theme');
+      return savedTheme === 'dark' || !savedTheme;
     }
-    return true; // Default to dark
+    return true;
   });
 
   useEffect(() => {
@@ -788,7 +790,7 @@ const Portfolio: React.FC = () => {
 
           <div className="border-t border-gray-200 dark:border-gray-800 pt-8">
             <p className="text-gray-500 dark:text-gray-500 text-sm">
-              © 2025 {profile.name}
+              © {new Date().getFullYear()} {profile.name}
             </p>
           </div>
         </div>
