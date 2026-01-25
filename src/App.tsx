@@ -580,7 +580,7 @@ const Portfolio: React.FC = () => {
            <motion.div 
              initial={{ opacity: 0, y: 30 }}
              whileInView={{ opacity: 1, y: 0 }}
-             className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-gray-200 dark:border-gray-700 group"
+             className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-gray-200 dark:border-gray-700 group mb-8"
            >
              {/* Project Preview: Iframe or Image Container */}
              <div className="relative aspect-video bg-gray-200 dark:bg-gray-700 w-full overflow-hidden">
@@ -600,48 +600,59 @@ const Portfolio: React.FC = () => {
 
                 {/* Hover Overlay with Action Button */}
                 {projects.intermediate[0].links?.deploy && (
-                   <a 
-                     href={projects.intermediate[0].links.deploy} 
-                     target="_blank" 
-                     rel="noopener noreferrer"
-                     className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10 cursor-pointer"
-                   >
-                     <div className="px-8 py-3 bg-blue-600 text-white rounded-full font-bold shadow-2xl group-hover:scale-105 transition transform flex items-center gap-2">
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-4 z-10">
+                   {projects.intermediate[0].links?.deploy && (
+                     <a 
+                       href={projects.intermediate[0].links.deploy} 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       className="px-8 py-3 bg-blue-600 text-white rounded-full font-bold shadow-2xl hover:scale-105 transition transform flex items-center gap-2"
+                     >
                        <ExternalLink size={20}/> Abrir Sistema
-                     </div>
-                   </a>
+                     </a>
+                   )}
+
+                   {projects.intermediate[0].details && (
+                      <button 
+                        onClick={() => setShowDesktopInfoModal(true)}
+                        className="flex items-center gap-2 px-2 py-1 text-white/90 hover:text-white font-medium text-sm hover:underline transition"
+                      >
+                        <Info size={18}/> Más Información
+                      </button>
+                   )}
+                </div>
                 )}
              </div>
+           </motion.div>
 
-             {/* Content Below Preview */}
-             <div className="p-6 md:p-8">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-start gap-4 md:gap-8">
-                  <div className="w-full">
-                    <h3 className="text-2xl md:text-3xl font-bold mb-3 text-gray-900 dark:text-white">{projects.intermediate[0].title}</h3>
-                    <p className="text-gray-600 dark:text-gray-300 text-base md:text-lg mb-6 leading-relaxed">{projects.intermediate[0].description}</p>
-                    
-                    <div className="flex gap-2 md:gap-3 flex-wrap">
-                      {(projects.intermediate[0].tech as string[]).map(t => (
-                        <span key={t} className="px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-md text-sm font-medium">
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+           {/* Content Below Preview (Outside the frame) */}
+           <div className="px-2">
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-start gap-4 md:gap-8">
+                <div className="w-full">
+                  <h3 className="text-2xl md:text-3xl font-bold mb-3 text-gray-900 dark:text-white">{projects.intermediate[0].title}</h3>
+                  <p className="text-gray-600 dark:text-gray-300 text-base md:text-lg mb-6 leading-relaxed">{projects.intermediate[0].description}</p>
                   
-                  <div className="flex gap-4 self-start md:self-start shrink-0 mt-2 md:mt-0">
-                     {projects.intermediate[0].details && (
-                       <button 
-                         onClick={() => setShowDesktopInfoModal(true)} 
-                         className="flex items-center gap-2 px-5 py-2.5 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-900 dark:text-white rounded-lg font-medium transition"
-                       >
-                         <Info size={20}/> Info
-                       </button>
-                     )}
+                  <div className="flex gap-2 md:gap-3 flex-wrap">
+                    {(projects.intermediate[0].tech as string[]).map(t => (
+                      <span key={t} className="px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-md text-sm font-medium">
+                        {t}
+                      </span>
+                    ))}
                   </div>
                 </div>
-             </div>
-           </motion.div>
+                
+                <div className="flex gap-4 self-start md:self-start shrink-0 mt-2 md:mt-0">
+                   {projects.intermediate[0].details && (
+                     <button 
+                       onClick={() => setShowDesktopInfoModal(true)} 
+                       className="p-3 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition shadow-lg border border-gray-100 dark:border-gray-600"
+                     >
+                       <Info size={24}/>
+                     </button>
+                   )}
+                </div>
+              </div>
+           </div>
            <AnimatePresence>
              {showDesktopInfoModal && (
                <ProjectInfoModal 
