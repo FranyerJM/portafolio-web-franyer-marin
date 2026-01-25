@@ -588,7 +588,7 @@ const Portfolio: React.FC = () => {
                   <iframe 
                     src={projects.intermediate[0].links.deploy} 
                     title={projects.intermediate[0].title}
-                    className="w-full h-full border-0 pointer-events-none transition-all duration-500 group-hover:blur-sm group-hover:scale-105"
+                    className="w-[400%] h-[400%] scale-[0.25] origin-top-left md:w-full md:h-full md:scale-100 border-0 pointer-events-none transition-all duration-500 group-hover:blur-sm group-hover:scale-[0.2625] md:group-hover:scale-105"
                     loading="lazy"
                   />
                 ) : (
