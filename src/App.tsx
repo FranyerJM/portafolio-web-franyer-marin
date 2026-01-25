@@ -194,6 +194,49 @@ const DemoModal: React.FC<{ isOpen: boolean; onClose: () => void; downloadLink?:
       </motion.div>
     </div>
   );
+
+};
+
+const DesktopWarningModal: React.FC<{ isOpen: boolean; onClose: () => void; onContinue: () => void }> = ({ isOpen, onClose, onContinue }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm" onClick={onClose}>
+      <motion.div 
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-2xl max-w-sm w-full text-center border border-gray-100 dark:border-gray-700 relative"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="mb-4 text-orange-500 flex justify-center">
+           <Smartphone size={48} className="stroke-1" /> 
+        </div>
+        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Versión de Escritorio</h3>
+        <p className="text-gray-600 dark:text-gray-300 mb-6 text-sm leading-relaxed">
+          Esto es un sistema hecho para <span className="font-bold">Desktop</span> (computadora de escritorio). No se verá igual en el celular.
+          <br/><br/>
+          Si deseas ver cómo es el sistema en realidad, por favor ábrelo en una PC.
+        </p>
+        
+        <div className="flex flex-col gap-3">
+          <button 
+            onClick={onContinue}
+            className="w-full py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition"
+          >
+            Continuar de todos modos
+          </button>
+          
+          <button 
+            onClick={onClose}
+            className="w-full py-3 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-xl font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition"
+          >
+            Cerrar
+          </button>
+        </div>
+      </motion.div>
+    </div>
+  );
 };
 
 const MobileProjectCard: React.FC<{ project: Project }> = ({ project }) => {
@@ -388,6 +431,7 @@ const MobileProjectCard: React.FC<{ project: Project }> = ({ project }) => {
             deployLink={project.links?.deploy}
           />
         )}
+
         {showInfoModal && (
           <ProjectInfoModal 
             isOpen={showInfoModal} 
@@ -466,6 +510,24 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, layout }) => {
 
 const Portfolio: React.FC = () => {
   const [showDesktopInfoModal, setShowDesktopInfoModal] = useState(false);
+  const [showDesktopWarningModal, setShowDesktopWarningModal] = useState(false);
+  const [pendingLink, setPendingLink] = useState('');
+
+  const handleOpenSystem = (e: React.MouseEvent, url: string) => {
+    // Check if mobile (using same breakpoint as Tailwind md: 768px)
+    if (window.innerWidth < 768) {
+      e.preventDefault();
+      setPendingLink(url);
+      setShowDesktopWarningModal(true);
+    }
+  };
+
+  const handleContinueToSystem = () => {
+    if (pendingLink) {
+      window.open(pendingLink, '_blank', 'noopener,noreferrer');
+    }
+    setShowDesktopWarningModal(false);
+  };
   const [isDark, setIsDark] = useState(() => {
     if (typeof window !== 'undefined') {
       // Default to dark mode unless explicitly set to light
@@ -604,6 +666,7 @@ const Portfolio: React.FC = () => {
                    {projects.intermediate[0].links?.deploy && (
                      <a 
                        href={projects.intermediate[0].links.deploy} 
+                       onClick={(e) => handleOpenSystem(e, projects.intermediate[0].links?.deploy || '')}
                        target="_blank" 
                        rel="noopener noreferrer"
                        className="px-8 py-3 bg-blue-600 text-white rounded-full font-bold shadow-2xl hover:scale-105 transition transform flex items-center gap-2"
@@ -653,15 +716,7 @@ const Portfolio: React.FC = () => {
                 </div>
               </div>
            </div>
-           <AnimatePresence>
-             {showDesktopInfoModal && (
-               <ProjectInfoModal 
-                 isOpen={showDesktopInfoModal} 
-                 onClose={() => setShowDesktopInfoModal(false)} 
-                 project={projects.intermediate[0]}
-               />
-             )}
-           </AnimatePresence>
+
         </section>
 
         {/* --- NIVEL 2: PROYECTOS INTERMEDIOS (Remaining) --- */}
@@ -809,6 +864,24 @@ const Portfolio: React.FC = () => {
           </div>
         </div>
       </footer>
+
+      {/* Global Modals */}
+      <AnimatePresence>
+        {showDesktopInfoModal && (
+          <ProjectInfoModal 
+            isOpen={showDesktopInfoModal} 
+            onClose={() => setShowDesktopInfoModal(false)} 
+            project={projects.intermediate[0]}
+          />
+        )}
+        {showDesktopWarningModal && (
+          <DesktopWarningModal 
+            isOpen={showDesktopWarningModal} 
+            onClose={() => setShowDesktopWarningModal(false)}
+            onContinue={handleContinueToSystem}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
