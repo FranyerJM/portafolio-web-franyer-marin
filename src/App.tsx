@@ -513,13 +513,14 @@ const Portfolio: React.FC = () => {
   const [showDesktopWarningModal, setShowDesktopWarningModal] = useState(false);
   const [pendingLink, setPendingLink] = useState('');
 
-  const handleOpenSystem = (e: React.MouseEvent, url: string) => {
+  const handleLinkClick = (e: React.MouseEvent, url: string) => {
     // Check if mobile (using same breakpoint as Tailwind md: 768px)
     if (window.innerWidth < 768) {
       e.preventDefault();
       setPendingLink(url);
       setShowDesktopWarningModal(true);
     }
+    // Desktop: Fall through to default behavior (target="_blank")
   };
 
   const handleContinueToSystem = () => {
@@ -583,7 +584,7 @@ const Portfolio: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               className="inline-block px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 rounded-full text-sm font-semibold"
             >
-              Disponible para trabajar
+              Siempre Creando 🚀
             </motion.div>
             <h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 dark:text-white leading-tight">
               Hola, soy <span className="text-blue-600 dark:text-blue-500">{profile.name}</span>
@@ -666,7 +667,7 @@ const Portfolio: React.FC = () => {
                    {projects.intermediate[0].links?.deploy && (
                      <a 
                        href={projects.intermediate[0].links.deploy} 
-                       onClick={(e) => handleOpenSystem(e, projects.intermediate[0].links?.deploy || '')}
+                       onClick={(e) => handleLinkClick(e, projects.intermediate[0].links?.deploy || '')}
                        target="_blank" 
                        rel="noopener noreferrer"
                        className="px-8 py-3 bg-blue-600 text-white rounded-full font-bold shadow-2xl hover:scale-105 transition transform flex items-center gap-2"
