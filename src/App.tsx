@@ -580,11 +580,10 @@ const Portfolio: React.FC = () => {
            <motion.div 
              initial={{ opacity: 0, y: 30 }}
              whileInView={{ opacity: 1, y: 0 }}
-             className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-gray-200 dark:border-gray-700 aspect-video group"
+             className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-gray-200 dark:border-gray-700 group"
            >
-             {/* Background Image (Using placeholder since no real image yet) */}
-             {/* Project Preview: Iframe or Image */}
-             <div className="absolute inset-0 bg-gray-200 dark:bg-gray-700 group h-full w-full">
+             {/* Project Preview: Iframe or Image Container */}
+             <div className="relative aspect-video bg-gray-200 dark:bg-gray-700 w-full overflow-hidden">
                 {projects.intermediate[0].links?.deploy ? (
                   <iframe 
                     src={projects.intermediate[0].links.deploy} 
@@ -600,7 +599,6 @@ const Portfolio: React.FC = () => {
                 )}
 
                 {/* Hover Overlay with Action Button */}
-                {/* Hover Overlay with Action Click Area */}
                 {projects.intermediate[0].links?.deploy && (
                    <a 
                      href={projects.intermediate[0].links.deploy} 
@@ -615,24 +613,29 @@ const Portfolio: React.FC = () => {
                 )}
              </div>
 
-             {/* Content Overlay */}
-             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent p-4 md:p-8 pt-16 md:pt-24 text-white pointer-events-none z-20">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 md:gap-0">
+             {/* Content Below Preview */}
+             <div className="p-6 md:p-8">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-start gap-4 md:gap-8">
                   <div className="w-full">
-                    <h3 className="text-xl md:text-3xl font-bold mb-2">{projects.intermediate[0].title}</h3>
-                    <p className="text-gray-200 max-w-2xl text-sm md:text-lg mb-4 line-clamp-3 md:line-clamp-none">{projects.intermediate[0].description}</p>
+                    <h3 className="text-2xl md:text-3xl font-bold mb-3 text-gray-900 dark:text-white">{projects.intermediate[0].title}</h3>
+                    <p className="text-gray-600 dark:text-gray-300 text-base md:text-lg mb-6 leading-relaxed">{projects.intermediate[0].description}</p>
+                    
                     <div className="flex gap-2 md:gap-3 flex-wrap">
                       {(projects.intermediate[0].tech as string[]).map(t => (
-                        <span key={t} className="px-2 md:px-3 py-1 bg-white/20 backdrop-blur-md rounded-md text-xs md:text-sm font-medium">
+                        <span key={t} className="px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-md text-sm font-medium">
                           {t}
                         </span>
                       ))}
                     </div>
                   </div>
-                  <div className="flex gap-4 pointer-events-auto self-end md:self-auto">
+                  
+                  <div className="flex gap-4 self-start md:self-start shrink-0 mt-2 md:mt-0">
                      {projects.intermediate[0].details && (
-                       <button onClick={() => setShowDesktopInfoModal(true)} className="p-3 bg-white text-gray-900 rounded-full hover:bg-gray-200 transition shadow-lg">
-                         <Info size={24}/>
+                       <button 
+                         onClick={() => setShowDesktopInfoModal(true)} 
+                         className="flex items-center gap-2 px-5 py-2.5 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-900 dark:text-white rounded-lg font-medium transition"
+                       >
+                         <Info size={20}/> Info
                        </button>
                      )}
                   </div>
