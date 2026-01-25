@@ -5,7 +5,7 @@ export const profile: Profile = {
   name: "Franyer Marin",
   title: "Ingeniero en Computación (En formación) | Full-Stack & Mobile Developer",
   bio: "Desarrollador de software enfocado en soluciones móviles multiplataforma y sistemas web robustos. Experto en automatización de procesos y con pasión por el UI/UX. Actualmente cursando el 8vo semestre de Ingeniería.",
-  photo: "https://i.ibb.co/nqjv6Qrv/Whats-App-Image-2025-06-02-at-23-59-07-4ef88d01.jpg", 
+  photo: "https://i.ibb.co/mVtQY7zQ/IMG-7942-Copy.jpg", 
   contact: {
     email: "franyerjmarin@gmail.com",
     phone: "0412-413.79.10",
