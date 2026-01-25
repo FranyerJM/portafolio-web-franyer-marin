@@ -66,7 +66,7 @@ export const projects: ProjectsData = {
       tech: ["Futter", "Dart", "Node.js"],
       img: latasaImages.length > 0 ? latasaImages[0] : "/images/latasa-cover.jpg",
       images: latasaImages.length > 0 ? latasaImages : ["/images/latasa-cover.jpg"],
-      links: { deploy: "https://latasa-three.vercel.app/", github: "#", download: "https://download850.mediafire.com/xhxco8g2edhgFZBmZns_3DWYo3ABhNlSSFDCsjfi2DhmX53Fv-9k5Omew28p5mzh7XWp42PhsSzGpq5Wm8KdoqF0K_zLIYr4Om-QD-YDGkUg08rzQbuBuWZSa1_mJ2u85NfoVjz2bWGUyBuqE2-jPKjFbD9X5-r7sqd7Lw9bZEt2zw/aqclrapugxwm8qn/laTasa+ARM+v1.3.apk" },
+      links: { deploy: "https://latasa-three.vercel.app/", github: "#", download: "https://franyerjm.github.io/build-projects/laTasaARM.apk" },
       details: {
         overview: "Aplicación líder en monitoreo de tasas cambiarias en Venezuela. Proporciona información actualizada en tiempo real de múltiples fuentes financieras, con herramientas integradas para conversión y análisis histórico.",
         features: ["Actualización en tiempo real", "Calculadora multimoneda", "Gráficos históricos", "Modo offline", "Notificaciones de volatilidad"],
