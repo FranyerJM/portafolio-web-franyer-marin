@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Github, Mail, Smartphone, Download, ExternalLink, Code, MapPin, Instagram, Facebook, MessageCircle, LucideIcon, Moon, Sun, Info, Layers, Server, Cpu, ChevronLeft, ChevronRight } from 'lucide-react';
-import { profile, skills, projects } from './data';
+import { Github, Mail, Smartphone, Download, ExternalLink, Code, MapPin, Instagram, Facebook, MessageCircle, LucideIcon, Moon, Sun, Info, Layers, Server, Cpu, ChevronLeft, ChevronRight, Globe } from 'lucide-react';
+import { data, skills } from './data';
 import { Project } from './types';
 
 // --- Components ---
@@ -22,7 +22,7 @@ const SectionTitle: React.FC<SectionTitleProps> = ({ title }) => (
 
 // --- Modal Component ---
 
-const ProjectInfoModal: React.FC<{ isOpen: boolean; onClose: () => void; project: Project }> = ({ isOpen, onClose, project }) => {
+const ProjectInfoModal: React.FC<{ isOpen: boolean; onClose: () => void; project: Project; labels: any }> = ({ isOpen, onClose, project, labels }) => {
   if (!isOpen || !project.details) return null;
 
   const { details } = project;
@@ -52,7 +52,7 @@ const ProjectInfoModal: React.FC<{ isOpen: boolean; onClose: () => void; project
            {/* Overview */}
            <div className="mb-8">
              <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-               <Info size={20} className="text-blue-500"/> Sobre el proyecto
+               <Info size={20} className="text-blue-500"/> {labels.aboutProject}
              </h4>
              <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-base">
                {details.overview}
@@ -62,7 +62,7 @@ const ProjectInfoModal: React.FC<{ isOpen: boolean; onClose: () => void; project
            {/* Features */}
            <div className="mb-8">
              <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-               <Cpu size={20} className="text-purple-500"/> Características Clave
+               <Cpu size={20} className="text-purple-500"/> {labels.keyFeatures}
              </h4>
              <ul className="grid sm:grid-cols-2 gap-2">
                {details.features.map((feature, idx) => (
@@ -77,13 +77,13 @@ const ProjectInfoModal: React.FC<{ isOpen: boolean; onClose: () => void; project
            {/* Tech Stack Grid */}
            <div>
              <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-               <Layers size={20} className="text-green-500"/> Stack Tecnológico
+               <Layers size={20} className="text-green-500"/> {labels.stack}
              </h4>
              <div className="grid sm:grid-cols-3 gap-6">
                 {details.stack.frontend && (
                   <div className="bg-gray-50 dark:bg-gray-900/30 p-4 rounded-xl border border-gray-100 dark:border-gray-700/50">
                     <div className="flex items-center gap-2 mb-3 text-blue-600 dark:text-blue-400 font-semibold text-sm uppercase tracking-wide">
-                      <LayoutIcon size={16}/> Frontend / Mobile
+                      <LayoutIcon size={16}/> {labels.frontendMobile}
                     </div>
                     <div className="flex flex-wrap gap-2">
                       {details.stack.frontend?.map(t => <TechBadge key={t} text={t}/>)}
@@ -95,7 +95,7 @@ const ProjectInfoModal: React.FC<{ isOpen: boolean; onClose: () => void; project
                 {(details.stack.backend || details.stack.database) && (
                   <div className="bg-gray-50 dark:bg-gray-900/30 p-4 rounded-xl border border-gray-100 dark:border-gray-700/50">
                     <div className="flex items-center gap-2 mb-3 text-emerald-600 dark:text-emerald-400 font-semibold text-sm uppercase tracking-wide">
-                      <Server size={16}/> Backend & Data
+                      <Server size={16}/> {labels.backendData}
                     </div>
                     <div className="flex flex-wrap gap-2">
                       {details.stack.backend?.map(t => <TechBadge key={t} text={t}/>)}
@@ -107,7 +107,7 @@ const ProjectInfoModal: React.FC<{ isOpen: boolean; onClose: () => void; project
                 {details.stack.tools && (
                   <div className="bg-gray-50 dark:bg-gray-900/30 p-4 rounded-xl border border-gray-100 dark:border-gray-700/50">
                     <div className="flex items-center gap-2 mb-3 text-orange-600 dark:text-orange-400 font-semibold text-sm uppercase tracking-wide">
-                      <Code size={16}/> Tools & Libs
+                      <Code size={16}/> {labels.toolsLibs}
                     </div>
                     <div className="flex flex-wrap gap-2">
                        {details.stack.tools?.map(t => <TechBadge key={t} text={t}/>)}
@@ -120,11 +120,11 @@ const ProjectInfoModal: React.FC<{ isOpen: boolean; onClose: () => void; project
 
         <div className="p-6 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 flex justify-end gap-3">
            <button onClick={onClose} className="px-5 py-2.5 text-gray-600 dark:text-gray-300 font-medium hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition">
-             Cerrar
+             {labels.close}
            </button>
            {project.links?.github && (
              <a href={project.links.github} target="_blank" rel="noopener noreferrer" className="px-5 py-2.5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-bold rounded-lg hover:opacity-90 transition flex items-center gap-2">
-               <Github size={18}/> Ver Código
+               <Github size={18}/> {labels.viewCode}
              </a>
            )}
         </div>
@@ -142,7 +142,7 @@ const TechBadge = ({ text }: { text: string }) => (
   </span>
 );
 
-const DemoModal: React.FC<{ isOpen: boolean; onClose: () => void; downloadLink?: string; deployLink?: string }> = ({ isOpen, onClose, downloadLink, deployLink }) => {
+const DemoModal: React.FC<{ isOpen: boolean; onClose: () => void; downloadLink?: string; deployLink?: string; labels: any }> = ({ isOpen, onClose, downloadLink, deployLink, labels }) => {
   if (!isOpen) return null;
 
   return (
@@ -154,12 +154,8 @@ const DemoModal: React.FC<{ isOpen: boolean; onClose: () => void; downloadLink?:
         className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-2xl max-w-sm w-full text-center border border-gray-100 dark:border-gray-700 relative"
         onClick={(e) => e.stopPropagation()}
       >
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Nota importante</h3>
-        <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
-          Este es el <strong>Demo Web</strong> de la app mobile. Es posible que algunas funcionalidades nativas no estén disponibles.
-          <br/><br/>
-          Si deseas la experiencia completa:
-        </p>
+        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">{labels.demoModalTitle}</h3>
+        <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed" dangerouslySetInnerHTML={{ __html: labels.demoModalDesc }} />
         
         <div className="flex flex-col gap-3">
           {downloadLink && (
@@ -169,7 +165,7 @@ const DemoModal: React.FC<{ isOpen: boolean; onClose: () => void; downloadLink?:
               rel="noopener noreferrer"
               className="w-full py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition flex items-center justify-center gap-2"
             >
-              <Download size={20}/> Descargar App Funcional
+              <Download size={20}/> {labels.downloadApp}
             </a>
           )}
           
@@ -180,7 +176,7 @@ const DemoModal: React.FC<{ isOpen: boolean; onClose: () => void; downloadLink?:
               rel="noopener noreferrer"
               className="w-full py-3 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-xl font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition"
             >
-              Continuar al Demo Web
+              {labels.continueDemo}
             </a>
           )}
         </div>
@@ -189,7 +185,7 @@ const DemoModal: React.FC<{ isOpen: boolean; onClose: () => void; downloadLink?:
           onClick={onClose}
           className="mt-6 text-sm text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 underline"
         >
-          Cancelar
+          {labels.cancel}
         </button>
       </motion.div>
     </div>
@@ -197,7 +193,7 @@ const DemoModal: React.FC<{ isOpen: boolean; onClose: () => void; downloadLink?:
 
 };
 
-const DesktopWarningModal: React.FC<{ isOpen: boolean; onClose: () => void; onContinue: () => void }> = ({ isOpen, onClose, onContinue }) => {
+const DesktopWarningModal: React.FC<{ isOpen: boolean; onClose: () => void; onContinue: () => void; labels: any }> = ({ isOpen, onClose, onContinue, labels }) => {
   if (!isOpen) return null;
 
   return (
@@ -212,26 +208,22 @@ const DesktopWarningModal: React.FC<{ isOpen: boolean; onClose: () => void; onCo
         <div className="mb-4 text-orange-500 flex justify-center">
            <Smartphone size={48} className="stroke-1" /> 
         </div>
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Versión de Escritorio</h3>
-        <p className="text-gray-600 dark:text-gray-300 mb-6 text-sm leading-relaxed">
-          Esto es un sistema hecho para <span className="font-bold">Desktop</span> (computadora de escritorio). No se verá igual en el celular.
-          <br/><br/>
-          Si deseas ver cómo es el sistema en realidad, por favor ábrelo en una PC.
-        </p>
+        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{labels.desktopWarningTitle}</h3>
+        <p className="text-gray-600 dark:text-gray-300 mb-6 text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: labels.desktopWarningDesc }} />
         
         <div className="flex flex-col gap-3">
           <button 
             onClick={onContinue}
             className="w-full py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition"
           >
-            Continuar de todos modos
+            {labels.continue}
           </button>
           
           <button 
             onClick={onClose}
             className="w-full py-3 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-xl font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition"
           >
-            Cerrar
+            {labels.close}
           </button>
         </div>
       </motion.div>
@@ -239,7 +231,7 @@ const DesktopWarningModal: React.FC<{ isOpen: boolean; onClose: () => void; onCo
   );
 };
 
-const MobileProjectCard: React.FC<{ project: Project }> = ({ project }) => {
+const MobileProjectCard: React.FC<{ project: Project; labels: any }> = ({ project, labels }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showDemoModal, setShowDemoModal] = useState(false);
   const [showInfoModal, setShowInfoModal] = useState(false);
@@ -356,7 +348,7 @@ const MobileProjectCard: React.FC<{ project: Project }> = ({ project }) => {
                      onClick={() => setShowDemoModal(true)}
                      className="flex items-center gap-2 px-6 py-2 bg-white/20 backdrop-blur-md border border-white/40 text-white rounded-full font-medium hover:bg-white/30 hover:scale-105 transition transform"
                    >
-                     <ExternalLink size={18}/> Ver Demo Web
+                     <ExternalLink size={18}/> {labels.demoWeb}
                    </button>
                  )}
                  
@@ -365,7 +357,7 @@ const MobileProjectCard: React.FC<{ project: Project }> = ({ project }) => {
                       onClick={() => setShowInfoModal(true)}
                       className="flex items-center gap-2 px-4 py-2 text-gray-200 hover:text-white font-medium text-sm hover:underline transition"
                     >
-                      <Info size={18}/> Más Información
+                      <Info size={18}/> {labels.moreInfo}
                     </button>
                  )}
                </div>
@@ -379,7 +371,7 @@ const MobileProjectCard: React.FC<{ project: Project }> = ({ project }) => {
                       rel="noopener noreferrer"
                       className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-full font-bold text-sm shadow-xl hover:bg-blue-700 hover:scale-105 transition transform"
                     >
-                      <Download size={18}/> Descargar App
+                      <Download size={18}/> {labels.download}
                     </a>
                  )}
                </div>
@@ -429,6 +421,7 @@ const MobileProjectCard: React.FC<{ project: Project }> = ({ project }) => {
             onClose={() => setShowDemoModal(false)} 
             downloadLink={project.links?.download}
             deployLink={project.links?.deploy}
+            labels={labels}
           />
         )}
 
@@ -437,6 +430,7 @@ const MobileProjectCard: React.FC<{ project: Project }> = ({ project }) => {
             isOpen={showInfoModal} 
             onClose={() => setShowInfoModal(false)} 
             project={project}
+            labels={labels}
           />
         )}
       </AnimatePresence>
@@ -448,9 +442,10 @@ const MobileProjectCard: React.FC<{ project: Project }> = ({ project }) => {
 interface ProjectCardProps {
   project: Project;
   layout?: 'large' | 'medium';
+  labels: any;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ project, layout }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ project, layout, labels }) => {
   const isLarge = layout === 'large';
   const [showInfoModal, setShowInfoModal] = useState(false);
   
@@ -499,6 +494,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, layout }) => {
           isOpen={showInfoModal} 
           onClose={() => setShowInfoModal(false)} 
           project={project}
+          labels={labels}
         />
       )}
     </AnimatePresence>
@@ -550,6 +546,21 @@ const Portfolio: React.FC = () => {
     console.log('Theme changed:', isDark ? 'Dark' : 'Light');
   }, [isDark]);
 
+
+  const [lang, setLang] = useState<'es' | 'en'>(() => {
+    if (typeof window !== 'undefined') {
+      const savedLang = localStorage.getItem('lang');
+      return (savedLang === 'es' || savedLang === 'en') ? savedLang : 'es';
+    }
+    return 'es';
+  });
+
+  const { profile, projects, labels } = data[lang];
+
+  useEffect(() => {
+    localStorage.setItem('lang', lang);
+  }, [lang]);
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 font-sans text-gray-800 dark:text-gray-100 transition-colors duration-300">
       
@@ -559,17 +570,29 @@ const Portfolio: React.FC = () => {
           <h1 className="font-bold text-2xl tracking-tight text-blue-700 dark:text-blue-500">FM.</h1>
           <nav className="flex items-center gap-6 text-sm font-medium text-gray-600 dark:text-gray-300">
             <div className="hidden md:flex gap-6">
-              <a href="#proyectos" className="hover:text-blue-600 dark:hover:text-blue-400">Proyectos</a>
-              <a href="#habilidades" className="hover:text-blue-600 dark:hover:text-blue-400">Skills</a>
-              <a href="#contacto" className="hover:text-blue-600 dark:hover:text-blue-400">Contacto</a>
+              <a href="#proyectos" className="hover:text-blue-600 dark:hover:text-blue-400">{labels.projects}</a>
+              <a href="#habilidades" className="hover:text-blue-600 dark:hover:text-blue-400">{labels.skills}</a>
+              <a href="#contacto" className="hover:text-blue-600 dark:hover:text-blue-400">{labels.contactNav}</a>
             </div>
-            <button 
-              onClick={() => setIsDark(!isDark)}
-              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-              aria-label="Toggle theme"
-            >
-              {isDark ? <Sun size={20} className="text-yellow-500"/> : <Moon size={20} className="text-gray-600"/>}
-            </button>
+            
+            <div className="flex items-center gap-2">
+              <button 
+                onClick={() => setLang(lang === 'es' ? 'en' : 'es')}
+                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors flex items-center gap-1 font-bold text-xs"
+                aria-label="Toggle language"
+              >
+                <Globe size={18} />
+                {lang.toUpperCase()}
+              </button>
+
+              <button 
+                onClick={() => setIsDark(!isDark)}
+                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                aria-label="Toggle theme"
+              >
+                {isDark ? <Sun size={20} className="text-yellow-500"/> : <Moon size={20} className="text-gray-600"/>}
+              </button>
+            </div>
           </nav>
         </div>
       </header>
@@ -584,21 +607,21 @@ const Portfolio: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               className="inline-block px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 rounded-full text-sm font-semibold"
             >
-              Siempre Creando 🚀
+              {labels.available}
             </motion.div>
             <h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 dark:text-white leading-tight">
-              Hola, soy <span className="text-blue-600 dark:text-blue-500">{profile.name}</span>
+              {labels.greeting} <span className="text-blue-600 dark:text-blue-500">{profile.name}</span>
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl">
-              {profile.title}. Transformo ideas complejas en interfaces móviles y web <span className="font-bold text-gray-800 dark:text-gray-100">intuitivas y potentes</span>.
+              {profile.title}. {profile.bio}
             </p>
             <div className="flex gap-4 pt-4">
               <a href="#contacto" className="px-6 py-3 bg-blue-600 dark:bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 dark:hover:bg-blue-500 transition shadow-lg shadow-blue-600/20">
-                Contactarme
+                {labels.contact}
               </a>
               {profile.contact.github && (
                 <a href={profile.contact.github} className="px-6 py-3 border border-gray-300 dark:border-gray-700 rounded-lg font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition flex items-center gap-2">
-                  <Github size={20}/> GitHub
+                  <Github size={20}/> {labels.github}
                 </a>
               )}
             </div>
@@ -620,15 +643,14 @@ const Portfolio: React.FC = () => {
 
         {/* --- NIVEL 1: HELIPUERTO DE ESTRELLAS (GRILLA MÓVIL) --- */}
         <section id="proyectos" className="mb-32 scroll-mt-24">
-          <SectionTitle title="Apps Móviles Destacadas" />
+          <SectionTitle title={labels.featuredApps} />
           <p className="text-gray-600 dark:text-gray-400 mb-12 max-w-2xl">
-            Soluciones nativas y multiplataforma diseñadas para la palma de tu mano. 
-            Cada pantalla es un carrusel de capturas reales.
+            {labels.featuredAppsDesc}
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
              {projects.relevant.map(p => (
-               <MobileProjectCard key={p.id} project={p} />
+               <MobileProjectCard key={p.id} project={p} labels={labels} />
              ))}
           </div>
         </section>
@@ -636,7 +658,7 @@ const Portfolio: React.FC = () => {
         {/* --- PROYECTO DESKTOP DESTACADO --- */}
         <section className="mb-24">
            <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-8 flex items-center gap-2">
-             <Code className="text-blue-500"/> Soluciones Web / Desktop
+             <Code className="text-blue-500"/> {labels.desktopTitle}
            </h3>
            
            {/* CRM FapyTech - 16:9 Layout */}
@@ -657,7 +679,7 @@ const Portfolio: React.FC = () => {
                 ) : (
                   /* Fallback if no deploy link */
                   <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-300 dark:from-gray-800 dark:to-gray-900">
-                     <span className="text-4xl font-bold text-gray-300 dark:text-gray-600 select-none">16:9 Desktop View</span>
+                     <span className="text-4xl font-bold text-gray-300 dark:text-gray-600 select-none">{labels.desktopFallback}</span>
                   </div>
                 )}
 
@@ -672,7 +694,7 @@ const Portfolio: React.FC = () => {
                        rel="noopener noreferrer"
                        className="px-8 py-3 bg-blue-600 text-white rounded-full font-bold shadow-2xl hover:scale-105 transition transform flex items-center gap-2"
                      >
-                       <ExternalLink size={20}/> Abrir Sistema
+                       <ExternalLink size={20}/> {labels.openSystem}
                      </a>
                    )}
 
@@ -681,7 +703,7 @@ const Portfolio: React.FC = () => {
                         onClick={() => setShowDesktopInfoModal(true)}
                         className="flex items-center gap-2 px-2 py-1 text-white/90 hover:text-white font-medium text-sm hover:underline transition"
                       >
-                        <Info size={18}/> Más Información
+                        <Info size={18}/> {labels.moreInfo}
                       </button>
                    )}
                 </div>
@@ -728,7 +750,7 @@ const Portfolio: React.FC = () => {
             </h3>
             <div className="grid md:grid-cols-3 gap-6">
               {projects.intermediate.slice(1).map(p => (
-                <ProjectCard key={p.id} project={p} layout="medium" />
+                <ProjectCard key={p.id} project={p} layout="medium" labels={labels} />
               ))}
             </div>
           </section>
@@ -760,15 +782,13 @@ const Portfolio: React.FC = () => {
         {/* --- SKILLS & ABOUT --- */}
         <section id="habilidades" className="grid md:grid-cols-3 gap-12 mb-24">
           <div className="md:col-span-2">
-            <SectionTitle title="Sobre mí" />
+            <SectionTitle title={labels.about} />
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-lg">
               {profile.bio} 
-              <br/><br/>
-              Combinando mi formación académica con experiencia real en el campo, he desarrollado una capacidad sólida para resolver problemas complejos, desde la automatización de tareas administrativas hasta la creación de experiencias de usuario inmersivas en aplicaciones móviles.
             </p>
           </div>
           <div>
-            <h3 className="font-bold text-gray-900 dark:text-white mb-4 text-lg">Stack Tecnológico</h3>
+            <h3 className="font-bold text-gray-900 dark:text-white mb-4 text-lg">{labels.stack}</h3>
             <div className="flex flex-wrap gap-2">
               {skills.map(s => (
                 <span key={s} className="px-3 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 shadow-sm">
@@ -790,9 +810,9 @@ const Portfolio: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Hablemos de tu próximo proyecto</h2>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">{labels.talk}</h2>
             <p className="text-lg text-gray-600 dark:text-gray-400 mb-10">
-              Si tienes alguna pregunta o una idea que quieras desarrollar, no dudes en contactarme.
+              {labels.talkDesc}
             </p>
 
             {/* Tarjeta de Información de Contacto */}
@@ -815,7 +835,7 @@ const Portfolio: React.FC = () => {
                   <Smartphone size={24} />
                 </div>
                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{profile.contact.phone}</span>
-                <span className="text-xs text-gray-500 dark:text-gray-500">Llamar ahora</span>
+                <span className="text-xs text-gray-500 dark:text-gray-500">{labels.call}</span>
               </a>
 
               <div className="w-full md:w-px h-px md:h-12 bg-gray-300 dark:bg-gray-700"></div>
@@ -826,7 +846,7 @@ const Portfolio: React.FC = () => {
                   <Mail size={24} />
                 </div>
                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{profile.contact.email}</span>
-                <span className="text-xs text-gray-500 dark:text-gray-500">Escribir correo</span>
+                <span className="text-xs text-gray-500 dark:text-gray-500">{labels.email}</span>
               </a>
             </div>
 
@@ -873,6 +893,7 @@ const Portfolio: React.FC = () => {
             isOpen={showDesktopInfoModal} 
             onClose={() => setShowDesktopInfoModal(false)} 
             project={projects.intermediate[0]}
+            labels={labels}
           />
         )}
         {showDesktopWarningModal && (
@@ -880,6 +901,7 @@ const Portfolio: React.FC = () => {
             isOpen={showDesktopWarningModal} 
             onClose={() => setShowDesktopWarningModal(false)}
             onContinue={handleContinueToSystem}
+            labels={labels}
           />
         )}
       </AnimatePresence>
